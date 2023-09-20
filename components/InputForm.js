@@ -15,6 +15,7 @@ const InputForm = () => {
       style={styles.addFormContainer}
     >
       <TextInput style={styles.inputField} placeholder='할 일 작성' />
+
       <Pressable style={styles.addButton}>
         <Text style={styles.addButtonText}>+</Text>
       </Pressable>
