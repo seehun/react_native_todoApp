@@ -3,8 +3,12 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import InputForm from '../components/InputForm';
 import TodoItem from '../components/TodoItem';
+import { useSelector } from 'react-redux';
 
 const MainScreen = () => {
+  // const todos = useSelector((state) => state.todo.todos);
+  // const todoTasks = todos.filter((item) => item.state === 'todo');
+  // const completedTasks = todos.filter((item) => item.state === 'done');
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'default'} />
