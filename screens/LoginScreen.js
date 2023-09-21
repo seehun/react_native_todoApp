@@ -11,6 +11,9 @@ import ListIcon from '../assets/list.svg';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {};
+  const handleJoin = async () => {};
   return (
     <View style={styles.container}>
       <ListIcon />
@@ -30,11 +33,14 @@ const LoginScreen = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>log in</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.button, styles.buttonOutLine]}>
+        <TouchableOpacity
+          style={[styles.button, styles.buttonOutLine]}
+          onPress={handleJoin}
+        >
           <Text style={styles.buttonOutLineText}>Join</Text>
         </TouchableOpacity>
       </View>
