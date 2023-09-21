@@ -6,17 +6,50 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ListIcon from '../assets/list.svg';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import Toast from 'react-native-toast-message';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = getAuth();
+  const navigation = useNavigation();
 
-  const handleLogin = async () => {};
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log('onAuthStateChanged user', user);
+      if (user) {
+        navigation.replace('Main');
+      }
+    });
+  }, []);
+
+  const handleLogin = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log('loginUser:', user);
+    } catch (error) {
+      Alert.alert(
+        `There's a problem while LogIn`,
+        error.message,
+        [
+          {
+            text: 'cancel',
+            onPress: () => console.log('cancel'),
+          },
+        ],
+        { cancelable: true }
+      );
+    }
+  };
   const handleJoin = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
