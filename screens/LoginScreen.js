@@ -4,10 +4,12 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import ListIcon from '../assets/list.svg';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import Toast from 'react-native-toast-message';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -19,8 +21,25 @@ const LoginScreen = () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
       console.log('user', user);
+      Toast.show({
+        type: 'success',
+        text1: 'Join Success!',
+        text2: `welcome ${email}~~`,
+      });
+      setEmail('');
+      setPassword('');
     } catch (error) {
-      console.log(error.message);
+      Alert.alert(
+        `There's a problem while joining`,
+        error.message,
+        [
+          {
+            text: 'cancel',
+            onPress: () => console.log('cancel'),
+          },
+        ],
+        { cancelable: true }
+      );
     }
   };
   return (
